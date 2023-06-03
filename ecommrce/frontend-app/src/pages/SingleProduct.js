@@ -25,7 +25,7 @@ const SingleProduct = () => {
   const [popularProduct , setPopularProduct] = useState([])
 
   const getproductId = location.pathname.split("/")[2];
-  const productState = useSelector((state) => state?.product?.sproduct);
+  const productState = useSelector((state) => state?.product?.product);
   console.log(productState)
   const cartState = useSelector((state) => state?.auth?.product);
   

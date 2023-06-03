@@ -76,7 +76,7 @@ export const productSlice = createSlice({
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
-                state.sproduct = action.payload ;
+                state.product = action.payload ;
                 state.message = " Single Product fetched succesfully"
                                
             })

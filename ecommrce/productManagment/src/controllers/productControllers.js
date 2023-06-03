@@ -404,7 +404,6 @@ const getAllProducts = async function (req, res) {
         queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`)
         let query = productModel.find(JSON.parse(queryStr))
 
-
         // sorting
         if(req.query.sort){
             const sortBy = req.query.sort.split(",").join(" ")

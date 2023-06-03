@@ -63,7 +63,7 @@ const Header = () => {
           <div className='row align-items-center'>
             <div className='col-2'>
               <h2>
-                <p className='text-white '>Sourav</p>
+                <p className='text-white '>Dev</p>
               </h2>
             </div>
             <div className='col-5'>

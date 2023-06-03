@@ -17,9 +17,6 @@ const { auth } = require('../middleware/auth.js')
 const AWS = require("aws-sdk");
 const shortId = require("shortid")
 
-
-
-
 router.post('/register', createUser)
 router.post('/admin-login', userLogin)
 router.get('/user/:userId/profile', auth, getUser)
@@ -31,7 +28,7 @@ router.put("/reset-password/:token" ,resetPassword)
 router.put("/password",auth ,updatedPassword)
 router.get("/logOut",logout)
 
-
+// ----------product-------
 router.post('/products', createProduct)
 router.get('/products', filterProduct)
 router.put('/products/:productId', updatedProduct)
@@ -41,8 +38,6 @@ router.delete('/products/:productId', deletedProduct)
 router.put('/wishlist', auth , addToWishList)
 router.put('/rating', auth , rating)
 router.get('/get-wishlist',auth ,getWishlist )
-
-
 
 //--------------------------cart--------------------------------------------------------------//
 router.post('/users/cart', auth, createCart)

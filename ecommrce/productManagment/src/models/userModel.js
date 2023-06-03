@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto")
+const crypto = require("crypto");
+const { stringify } = require("querystring");
 
 
 const userSchema = new mongoose.Schema({
@@ -16,23 +17,29 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true,
         },
-        // profileImage: {
-        //     type: Array,
-        //     // required: true
-        // }, // s3 link
-        phone: {
+        
+        mobile: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            index:true
         },
 
         password: {
             type: String,
             required: true
         },
-        role: {
+        roles: {
             type: String,
             default: "user"
+        },
+        proffesion:{
+            type: String,
+        },
+
+        isBlocked:{
+            type:Boolean,
+            default:false
         },
         refreshToken:{
             type: String
@@ -43,9 +50,7 @@ const userSchema = new mongoose.Schema({
             type : Array,
             default: []
         },
-        passwordChangedAt : Date,
-        passwordResetToken : String,
-        passwordResetExpires: Date
+        
     }, { timestamps: true })
 
     userSchema.methods.createPasswordResetToken = async ()=>{
