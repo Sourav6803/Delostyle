@@ -100,19 +100,19 @@ router.post("/order/paymentVerification",auth, paymentVerification)
 const aws = require("aws-sdk")
 
 aws.config.update({
-    accessKeyId: "AKIA2VQCREO4NBWV2455",
-    secretAccessKey: "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",
-    region: "ap-northeast-1"
+    accessKeyId: "AKIAUCD4DQKO32BBPUEP",
+    secretAccessKey: "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",
+    region: "ap-south-1"
 })
 
-const uploadFile = async (file) => {
+ const uploadFile = async (file) => {
     return new Promise(function (resolve, reject) {
         // this function will upload file to aws and return the link
         let s3 = new aws.S3({ apiVersion: '2006-03-01' });
 
         var uploadParams = {
             ACL: "public-read",
-            Bucket: "devdutta",
+            Bucket: "xxyy",
             Key: "abc/" + file.originalname,
             Body: file.buffer
         }
@@ -138,13 +138,14 @@ router.post("/img", async function (req, res) {
             
             for (let i = 0; i < req.files.length; i++) {
                 let imgLink = await uploadFile(files[i])
+                console.log(imgLink);
                 photos.push({
                     // productId: productId,
                     // uploadFileUrl :  req.files[i].fileName,
                     // mime: req.files[i].mimetype,
                     url: imgLink,
-                    asset_id: shortId.generate(),
-                    public_id: shortId.generate()
+                    // asset_id: shortId.generate(),
+                    // public_id: shortId.generate()
                 })
             }
             res.status(201).send(photos)

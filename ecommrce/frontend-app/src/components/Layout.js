@@ -1,5 +1,4 @@
 import React from 'react'
-import Footer from './Footer'
 import Header from './Header'
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -11,7 +10,7 @@ const Layout = () => {
     <div>
       <Header />
       <Outlet />
-      <Footer />
+      
       <ToastContainer
         position="top-right"
         autoClose={5000}

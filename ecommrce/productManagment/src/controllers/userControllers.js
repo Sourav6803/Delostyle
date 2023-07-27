@@ -34,26 +34,30 @@ const createUser = async function (req, res) {
         if (usedEmail) return res.status(409).send({ status: false, message: "emailId is already used" })
 
         //===================================Imagefile validation==========================//
-        // const files = req.files;
-        // if (!files || !files.length > 0) return res.status(400).send({ status: false, message: "please enter profileImage" })
-        // // const myFile = files[0]
+        const files = req.files;
+        if (!files || !files.length > 0) return res.status(400).send({ status: false, message: "please enter profileImage" })
+        // const myFile = files[0]
+        console.log("files",files)
         
-        // const fileType = files['mimetype'];
-        // const validImageTypes = ['image/gif', 'image/jpeg', 'image/png' ,'image/jpg' ];
-        // if (!validImageTypes.includes(fileType)) return res.status(400).send({ status: false, message: "Please enter valid image file" })
-        // //********uploading image to aws*******/
-        // let uploadImage
-        // for(let i=0;i<files.length;i++){
-        //      uploadImage = await file.uploadFile(files[i])
-        // }
+        const fileType = files['mimetype'];
+        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png' ,'image/jpg' ];
+        //if (!validImageTypes.includes(fileType)) return res.status(400).send({ status: false, message: "Please enter valid image file" })
+        //********uploading image to aws*******/
+        let uploadImage = []
+        let imageLink
+
+        for(let i=0;i<files.length;i++){
+             imageLink = await file.uploadFile(files[i])
+             uploadImage.push(imageLink)
+        }
         
-        // data.profileImage = uploadImage;
-        //  if(!data.profileImage)return res.status(400).send({status:false,message:"please add profile Image"})
+        data.profileImage = uploadImage;
+         if(!data.profileImage)return res.status(400).send({status:false,message:"please add profile Image"})
         //==================================phone validations============================//
-        if (!isValid(phone)) return res.status(400).send({ status: false, message: "please enter phone number" })
-        if (!/^([9876]{1})(\d{1})(\d{8})$/.test(phone)) return res.status(400).send({ status: false, message: "please enter valid phone number" })
-        const usedNumber = await userModel.findOne({ phone: phone })
-        if (usedNumber) return res.status(409).send({ status: false, message: " Phone number is already exist" })
+        //if (!isValid(phone)) return res.status(400).send({ status: false, message: "please enter phone number" })
+        //if (!/^([9876]{1})(\d{1})(\d{8})$/.test(phone)) return res.status(400).send({ status: false, message: "please enter valid phone number" })
+        // const usedNumber = await userModel.findOne({ phone: phone })
+        // if (usedNumber) return res.status(409).send({ status: false, message: " Phone number is already exist" })
         //===========================password validation===================================//
         // let password = req.body.password
         if (!isValid(password)) return res.status(400).send({ status: false, message: "please enter password" })
@@ -191,7 +195,7 @@ const userLogin = async function (req, res) {
         // if (!isValid(email) || !isValid(password))
         // return res.status(400).send({ status: false, msg: "Provide emailId and Password both" });
         if (!isValid(email)) return res.status(400).send({ status: false, message: "please enter email in string format" })
-        if (!/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email)) return res.status(400).send({ status: false, message: "please enter valid email" })
+        if (!/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email)) return res.status(200).send({ status: false, message: "Please enter valid email" })
 
         if (!isValid(password)) return res.status(400).send({ status: false, message: "please enter password in string format" })
         if (!/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,15}$/.test(password)) return res.status(400).send({ status: false, message: "invalid password" })
@@ -218,7 +222,7 @@ const userLogin = async function (req, res) {
                         expiresIn: "10d"
                     });
 
-                return res.status(200).send({message: "Login Succesfully", token ,myUser })
+                return res.status(200).send({message: "Login Succesfully", token ,fname:myUser.fname })
                 // status: true, msg: "success", userId: myUser._id,
                 //fname:myUser.fname, lname: myUser.lname , email: myUser.email
             }

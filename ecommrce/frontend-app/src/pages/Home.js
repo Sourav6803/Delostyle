@@ -1,43 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
-import BlogCard from "../components/BlogCard";
-import ProductCard from "../components/ProductCard";
-import SpecialProducts from "../components/SpecialProducts";
+
+
+
 import Container from "../components/Container";
 import services from "../utils/Data";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { getAllBlogs } from "../features/blogs/blogSlice";
-import {
-  addToWishlist,
-  getAllProducts,
-} from "../features/product/productSlice";
-import ReactStars from "react-rating-stars-component";
+
 
 const Home = () => {
   const navigate = useNavigate()
-  const blogState = useSelector((state) => state.blog.blog);
-  const productState = useSelector((state) => state.product.product);
-
+  
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getBlogs();
-    getProducts();
-  }, []);
-  const getBlogs = () => {
-    dispatch(getAllBlogs());
-  };
-  const getProducts = () => {
-    dispatch(getAllProducts());
-  };
-  const addToWish = (id) => {
-    dispatch(addToWishlist(id));
-  };
+
   return (
     <>
-      <Container class1="home-wrapper-1 py-5">
+      {/* <Container class1="home-wrapper-1 py-5">
         <div className="row">
           <div className="col-6">
             <div className="main-banner position-relative p-3">
@@ -102,9 +83,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
 
-      <Container class1="home-wrapper-2 py-5">
+      {/* <Container class1="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="services d-flex align-items-center justify-content-between">
@@ -122,9 +103,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
 
-      <Container class1="home-wrapper-3 py-5">
+      {/* <Container class1="home-wrapper-3 py-5">
         <div className="row">
           <div className="col-12">
             <div className="categories d-flex justify-content-between flex-wrap align-items-center">
@@ -195,9 +176,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
 
-      <Container class1="featured-wrapper py-5 home-wrapper-2">
+      {/* <Container class1="featured-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Featured Collection</h3>
@@ -273,9 +254,9 @@ const Home = () => {
               })}
           </div>
         </div>
-      </Container>
+      </Container> */}
 
-      <Container class1="famous-wrapper py-5 home-wrapper-2">
+      {/* <Container class1="famous-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-3">
             <div className="famous-card position-relative">
@@ -354,9 +335,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
 
-      <Container class1="special-wrapper py-5 home-wrapper">
+      {/* <Container class1="special-wrapper py-5 home-wrapper">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Special Products</h3>
@@ -382,9 +363,9 @@ const Home = () => {
               }
             })}
         </div>
-      </Container>
+      </Container> */}
 
-      <Container class1="popular-wrapper py-5 home-wrapper-2">
+      {/* <Container class1="popular-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Our Popular Products</h3>
@@ -460,9 +441,9 @@ const Home = () => {
               })}
           </div>
         </div>
-      </Container>
+      </Container> */}
 
-      <Container class1="marque-wrapper py-5">
+      {/* <Container class1="marque-wrapper py-5">
         <div className="row">
           <div className="col-12">
             <div className="marquee-inner-wrapper card-wrapper">
@@ -499,9 +480,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
 
-      <Container class1="blog-wrapper py-5 home-wrapper-2">
+      {/* <Container class1="blog-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Our latest Blogs</h3>
@@ -528,7 +509,7 @@ const Home = () => {
               })
             : []}
         </div>
-      </Container>
+      </Container> */}
     </>
   );
 };

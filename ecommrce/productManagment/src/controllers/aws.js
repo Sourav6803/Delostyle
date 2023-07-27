@@ -1,29 +1,27 @@
 const aws = require("aws-sdk")
 
 aws.config.update({
-    accessKeyId: "AKIA2VQCREO4NBWV2455",
-    secretAccessKey: "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",
-    region: "ap-northeast-1"
+    accessKeyId: "AKIAUCD4DQKO32BBPUEP",
+    secretAccessKey: "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",
+    region: "ap-south-1"
 })
 
-// secretAccessKey : CJ2tzMSE73ZXKhVJc32hkIzvU6elbBr/DA8rEtkj
-// accessKeyId : AKIAUCD4DQKOUQCHJWZW
+// accessKeyId: "AKIA2VQCREO4NBWV2455",
+//     secretAccessKey: "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",
+//     region: "ap-northeast-1"
 
-// AKIAUCD4DQKOROHTRH7L
-// BhlOVdKyGx/0F6H8duho67jrQ1EH2SQuJwsfWdKS
 
 
 const uploadFile = async (file) => {
     return new Promise(function (resolve, reject) {
-        // this function will upload file to aws and return the link
         let s3 = new aws.S3({ apiVersion: '2006-03-01' });
-
         var uploadParams = {
             ACL: "public-read",
-            Bucket: "devdutta",
+            Bucket: "xxyy",
             Key: "abc/" + file.originalname,
             Body: file.buffer
         }
+
         s3.upload(uploadParams, function (err, data) {
             if (err) {
                 return reject({ "error": err })
@@ -140,3 +138,5 @@ module.exports.uploadFile = uploadFile
 //             res.status(500).json({ 'errors': ['Error insert photo'] });
 //         });
 // }
+
+module.exports.uploadFile = uploadFile

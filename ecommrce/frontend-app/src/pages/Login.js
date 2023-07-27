@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import BreadCrumbs from '../components/BreadCrumbs';
 import Container from '../components/Container';
 import Meta from '../components/Meta';
 import CustomInput from '../components/CustomInput';
 import { useFormik } from 'formik';
+import "./login.css"
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../features/user/userSlice';
@@ -15,14 +16,12 @@ const loginSchema = yup.object().shape({
 });
 
 const Login = () => {
-    const authState = useSelector(state=>state.auth)
+    const authState = useSelector(state=>state.auth.logedUser?.status)
+    console.log(authState)
     
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-
+    const navigate = useNavigate() 
     
-    
-
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -31,25 +30,43 @@ const Login = () => {
         validationSchema: loginSchema,
         onSubmit: values => {
             dispatch(loginUser(values))
-            navigate('/') 
-            // if(authState.myUser.token === localStorage.getItem.token){
-            //     
-            // } 
+            // if(authState !== undefined && authState == true ){
+            //     navigate('/my-profile')
+            // }
             
-        },
+
+
+            // navigate("/my-profile")
+        },  
         
     });
+
+    useEffect(()=>{
+        if( authState){
+            setTimeout(()=>{
+                navigate('/my-profile')
+            },1000)
+        }
+    },[authState])
+
+    
+
+    
 
     return (
         <>
             <Meta title={"Login"} />
             <BreadCrumbs title='Login' />
+             
+            
             <Container class1='login-wrapper py-5 home-wrapper-2'>
                 <div className='row'>
                     <div className='col-12'>
                         <div className='auth-card' style={{ border: "1px solid grey" }}>
                             <h3 className='text-center mb-3'>Login</h3>
                             <form action='' onSubmit={formik.handleSubmit} className='d-flex flex-column gap-15'>
+
+                            
                                 <CustomInput
                                     type="email"
                                     name='email'

@@ -9,8 +9,8 @@ import { updateProfile } from '../features/user/userSlice'
 import {FiEdit} from "react-icons/fi"
 
 const profileSchema = yup.object().shape({
-    firstname: yup.string().required("First Name is required"),
-    lastname: yup.string().required("Last Name is required"),
+    firstName: yup.string().required("First Name is required"),
+    lastName: yup.string().required("Last Name is required"),
     email: yup.string().required("Email shouldbe valid").required("Email erquired"),
     mobile: yup.number().required("Mobile is required"),
 });
@@ -18,16 +18,17 @@ const profileSchema = yup.object().shape({
 const Profile = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const userState = useSelector(state=>state?.auth?.user?.myUser)
+    const userState = useSelector(state=>state?.auth?.logedUser?.myUser)
+    console.log(userState)
     const [edit , setEdit] = useState(true)
 
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            firstname: userState?.fname,
-            lastname: userState?.lname,
+            firstName: userState?.firstName,
+            lastName: userState?.lastName,
             email: userState?.email,
-            mobile: userState?.phone,
+            mobile: userState?.mobile,
         },
         validationSchema: profileSchema,
         onSubmit: values => {  
@@ -56,12 +57,12 @@ const Profile = () => {
                         className="form-control"
                         disabled={edit} 
                         id="example1" 
-                        value={formik.values.firstname}
+                        value={formik.values.firstName}
                         onChange={formik.handleChange("firstname")}
                         onBlur={formik.handleBlur("firstname")}
                       />
                       <div className='errors'>
-                            {formik.touched.firstname && formik.errors.firstname}
+                            {formik.touched.firstName && formik.errors.firstName}
                       </div>
                   </div>
 
@@ -73,12 +74,12 @@ const Profile = () => {
                         className="form-control"
                         disabled={edit} 
                         id="example1"
-                        value={formik.values.lastname}
-                        onChange={formik.handleChange("lastname")}
-                        onBlur={formik.handleBlur("lastname")}
+                        value={formik.values.lastName}
+                        onChange={formik.handleChange("lastName")}
+                        onBlur={formik.handleBlur("lastName")}
                      />
                      <div className='errors'>
-                            {formik.touched.lastname && formik.errors.lastname}
+                            {formik.touched.lastName && formik.errors.lastName}
                      </div>
                   </div>
 

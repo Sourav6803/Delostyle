@@ -4,9 +4,9 @@ const AWS = require('aws-sdk');
 const multerS3 = require('multer-s3')
 
 AWS.config.update({
-    accessKeyId: "AKIA2VQCREO4NBWV2455",
-    secretAccessKey: "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",
-    region: "ap-northeast-1"
+    accessKeyId: "AKIAUCD4DQKO32BBPUEP",
+    secretAccessKey: "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",
+    region: "ap-south-1"
 })
 
 const s3 = new AWS.S3();
@@ -22,7 +22,7 @@ var upload = multer({
     storage: multerS3({
         fileFilter,
         s3: s3,
-        bucket: "devdutta",
+        bucket: "xxyy",
         metadata: function (req, file, cb) {
             cb(null, { fieldName: 'abhi_meta_data' });
         },

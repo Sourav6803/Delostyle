@@ -1,0 +1,1 @@
+hiii scp myfile.txt username@remoteserver:/remote/folder/

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const file = require("../controllers/aws.js");
 const userModel = require("../models/userModel.js");
 const ObjectId = require('mongoose').Types.ObjectId;
+const aws_files = require("../route/route.js")
 
 
 
@@ -16,6 +17,40 @@ const isValid = function (value) {
 const isValidRequestBody = function (requestBody) {
     return Object.keys(requestBody).length > 0;
 };
+
+const aws = require("aws-sdk")
+
+aws.config.update({
+    accessKeyId: "AKIAUCD4DQKO32BBPUEP",
+    secretAccessKey: "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",
+    region: "ap-south-1"
+})
+
+// accessKeyId: "AKIA2VQCREO4NBWV2455",
+//     secretAccessKey: "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",
+//     region: "ap-northeast-1"
+
+
+
+const uploadFile = async (file) => {
+    return new Promise(function (resolve, reject) {
+        let s3 = new aws.S3({ apiVersion: '2006-03-01' });
+        var uploadParams = {
+            ACL: "public-read",
+            Bucket: "xxyy",
+            Key: "abc/" + file.originalname,
+            Body: file.buffer
+        }
+
+        s3.upload(uploadParams, function (err, data) {
+            if (err) {
+                return reject({ "error": err })
+            }
+            console.log("file uploaded succesfully")
+            return resolve(data.Location)
+        })
+    })
+}
 
 
 
@@ -63,16 +98,25 @@ const createProduct = async function (req, res) {
 
         
         const files = req.files;
-        if (!files || !files.length > 0) return res.status(400).send({ status: false, message: "please enter poductImage" })
-        const myFile = files[0]
-        const fileType = myFile['mimetype'];
-        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg', 'image/webp' , 'image/avif'];
-        if (!validImageTypes.includes(fileType)) return res.status(400).send({ status: false, message: "Please enter valid image file" })
-    //     // //********uploading image to aws*******/
-        const uploadImage = await file.uploadFile(myFile)
+        if (!files || !files.length < 0) return res.status(400).send({ status: false, message: "please enter product Image" })
+        // const myFile = files[0]
+        console.log("files",files)
         
+        const fileType = files['mimetype'];
+        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png' ,'image/jpg' ];
+        //if (!validImageTypes.includes(fileType)) return res.status(400).send({ status: false, message: "Please enter valid image file" })
+        //********uploading image to aws*******/
+        let uploadImage = []
+        let imageLink
 
-          req.body.productImage = uploadImage;
+        for(let i=0;i<files.length;i++){
+             imageLink = await uploadFile(files[i])
+             uploadImage.push(imageLink)
+        }
+        console.log("uploadImage",uploadImage)
+        
+        data.productImage = uploadImage;
+         if(!data.productImage)return res.status(400).send({status:false,message:"please add profile Image"})
         
 
          let availableSize = JSON.parse(availableSizes)

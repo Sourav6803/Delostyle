@@ -1,41 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { BsSearch } from 'react-icons/bs'
+
 import { useDispatch, useSelector } from 'react-redux';
-import { Typeahead } from 'react-bootstrap-typeahead'; 
+
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-import { getAProduct } from '../features/product/productSlice';
+
 import { toast } from 'react-toastify';
 
 
 const Header = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [total,setTotal] = useState(null)
-  const [paginate, setPaginate] = useState(true);
   
-  
-  const cartState = useSelector(state=>state?.auth?.cartProducts)
   const authState = useSelector(state=>state?.auth)
-  const productState = useSelector(state=>state?.product?.product)
-  const [productOpt,setProductOpt] = useState([])
-  useEffect(()=>{
-    let sum = 0
-    for(let i=0;i<cartState?.length;i++){
-      sum += (Number(cartState[i].quantity) * Number(cartState[i].price))
-      setTotal(sum)
-    }
-  },cartState)
   
-
-  useEffect(()=>{
-    let data = []
-    for(let i=0;i<productState?.length;i++){
-      const element = productState[i]
-      data.push({id:i,prod:element?._id,name:element?.title})
-    }
-    setProductOpt(data)
-  },[productState])
+ 
 
   const handleLogout = ()=>{
     localStorage.clear()
@@ -45,7 +24,7 @@ const Header = () => {
   }
   return (
     <>
-      <header className='header-top-strip bg-dark py-3 border border-bottom-white'>
+      {/* <header className='header-top-strip bg-dark py-3 border border-bottom-white'>
         <div className='container-xxl'>
           <div className='row'>
             <div className='col-6'>
@@ -56,9 +35,9 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </header>
+      </header> */}
 
-      <header className='header-upper py-3 bg-dark'>
+      {/* <header className='header-upper py-3 bg-dark'>
         <div className='container-xxl'>
           <div className='row align-items-center'>
             <div className='col-2'>
@@ -96,7 +75,7 @@ const Header = () => {
                   <Link to={authState?.user === null ? "/login" : "/my-profile" } className='d-flex align-items-center gap-10 text-white'>
                     <img src='images/user.svg' alt='user' />
                     {
-                      authState?.user === null ? <p className='mb-0'>Login <br /> My account</p> : <p className='mb-0'>Welcome <br /> {authState?.user?.myUser?.fname}</p>
+                      authState?.user === null ? <p className='mb-0'>Login <br /> My account</p> : <p className='mb-0'>Welcome <br /> {authState?.user?.fname}</p>
                     }
                   </Link>
                 </div>
@@ -113,9 +92,9 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </header>
+      </header> */}
 
-      <header className='header-bottom py-3'>
+      {/* <header className='header-bottom py-3'>
         <div className='container-xxl'>
           <div className='row'>
             <div className='col-12'>
@@ -147,7 +126,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </header>
+      </header> */}
     </>
   )
 }
